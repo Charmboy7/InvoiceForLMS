@@ -1,0 +1,109 @@
+
+  
+  .invoice-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+/* Example CSS */
+.invoice-card {
+    background-color: #f0f0f0; /* Set your desired background color */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2); /* Add shadow for depth */
+  }
+  
+  /* Style for smaller logo */
+  .smaller-logo {
+    width: 80px; /* Adjust logo size as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Style for the header */
+  .invoice-header {
+    font-size: 1.5em; /* Adjust font size */
+    font-weight: bold;
+    color: #333; /* Change the color as per your design */
+    margin-bottom: 20px; /* Add bottom margin */
+  }
+  
+/* Example CSS for table and titles */
+.table-title {
+    font-size: 1.2em; /* Adjust font size for table titles */
+    font-weight: bold;
+    color: #333; /* Set color for table titles */
+    margin-bottom: 15px; /* Add bottom margin for separation */
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 20px; /* Add some space below the table */
+  }
+  
+  .table th {
+    font-weight: bold; /* Make table headers bold */
+    color: #555; /* Set color for table headers */
+    padding: 8px; /* Add padding for table headers */
+    text-align: left; /* Align table headers to the left */
+    border-bottom: 1px solid #ddd; /* Add bottom border for table headers */
+  }
+  
+  .table td {
+    padding: 8px; /* Add padding for table cells */
+    text-align: left; /* Align table cells to the left */
+    vertical-align: top; /* Align content to the top */
+    border-bottom: 1px solid #ddd; /* Add bottom border for table cells */
+  }
+  
+  /* Example CSS for specific table titles */
+  .course-details-title {
+    color: #ff6347; /* Set color for Course Details title */
+  }
+  
+  .invoice-details-title {
+    color: #4682b4; /* Set color for Invoice Details title */
+  }
+  
+  .student-details-title {
+    color: #32cd32; /* Set color for Student Details title */
+  }
+  
+  /* Improve text formatting */
+  .invoice-card .card-title {
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .invoice-card table th,
+  .invoice-card table td {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .invoice-card table th {
+    width: 45%;
+    text-align: left;
+  }
+  
+  .invoice-card table td {
+    width: 55%;
+    text-align: right;
+  }
+  
+  /* Style the Save PDF button */
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
