@@ -11,7 +11,7 @@ public interface ExamFeeRepository extends JpaRepository<ExamFee, Long> {
     
 	
 	@Query("SELECT cd.courseId, cd.courseName, cd.courseDuration, cd.startDate, cd.endDate, " +
-		       "ef.regId, ef.fullName AS examfee_fullname, ef.courseId, ef.courseName, ef.examFees, " +
+		       "ef.regId, ef.fullName AS examfee_fullname, ef.courseId, ef.courseName, ef.examFees,ef.payDate,ef.paymentType, " +
 		       "s.contactNo, s.emailAddress, s.fullName AS student_name " +
 		       "FROM CourseDetails cd " +
 		       "JOIN ExamFee ef ON cd.courseId = ef.courseId " +

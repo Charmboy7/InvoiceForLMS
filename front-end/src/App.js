@@ -2,14 +2,18 @@ import logo from './logo.svg';
 import './App.css';
 import InvoiceDetails from './Components/InvoiceDetails ';
 import ExamFeeInfo from './Components/ExamFeeInfo';
-import ListEmployeeComponent from './Components/ListEmployeeComponent';
+
 import DisplayInvoice from './Components/DisplayInvoice';
 import InvoiceAdmin from './Components/InvoiceAdmin';
-import TryComp from './Components/TryComp';
+
 import ExamFeeAdmin from './Components/ExamFeeAdmin';
 import PendingExamFeeAdmin from './Components/PendingExamFeeAdmin';
-
-
+import Navbar from './Components/Navbar';
+import AdmSideNav from './Components/AdminConsole/AdmSideNav';
+import AdmSideNavRoute from './Components/AdminConsole/AdmSideNavRoute';
+import NavbarAdmin from './Components/NavbarAdmin';
+import NavbarStudent from './Components/NavbarStudent';
+import StdSideNavRoute from './Components/StudentConsole/StdSideNavRoute';
 function App() {
 
 
@@ -19,8 +23,21 @@ function App() {
        {/* <DisplayInvoice></DisplayInvoice> */}
      {/* <InvoiceAdmin/> */}
      {/* <ExamFeeInfo></ExamFeeInfo> */}
-     <ExamFeeAdmin></ExamFeeAdmin>
-  
+     {/* <ExamFeeAdmin></ExamFeeAdmin> */}
+
+     <Navbar></Navbar>
+
+
+     {/* For Admin */}
+     
+     <NavbarAdmin></NavbarAdmin>
+     <AdmSideNavRoute></AdmSideNavRoute>
+
+    {/* For Student */}
+    
+    {/* <NavbarStudent></NavbarStudent>
+    <StdSideNavRoute></StdSideNavRoute> */}
+
     </div>
   );
   

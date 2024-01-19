@@ -10,6 +10,7 @@ function InvoiceAdmin() {
   const [data, setData] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch data from the given URL
@@ -19,9 +20,17 @@ function InvoiceAdmin() {
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setError(error);
       });
   }, []);
 
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (!data) {
+    return <p>Loading...</p>;
+  }
 
   const subjects = [...new Set(data.map(student => student.courseName))];
 
@@ -130,14 +139,14 @@ function InvoiceAdmin() {
 
 
   return (
-    <div className="invoice-container">
-      <h2 className="text-center mb-4">Invoice Details For Admin</h2>
-
-      <div className="row mb-3">
-        <div className="col-lg-6">
+    <div className="container-fluid invoice-container1" style={{ background: '#e8f4f9', width: '100%' }} id="#top">
+      {/* <h2  style={{color:'black'}}>Course Fee Details</h2> */}
+      <br />
+      <div className="row mb-3" style={{ width: '100%' }}>
+        <div className="col-lg-6" >
           <div className="row">
             <div className="col-lg-12">
-              <label htmlFor="searchInput" className="form-label">Search:</label>
+              <label htmlFor="searchInput" className="form-label" style={{ color: 'black' }} >Search:</label>
 
 
             </div>
@@ -160,7 +169,7 @@ function InvoiceAdmin() {
               <option key={index} value={course}>{course}</option>
             ))}
           </select> */}
-              <label htmlFor="courseSelect" className="form-label">Select Course:</label>
+              <label htmlFor="courseSelect" className="form-label" style={{ color: 'black' }}>Select Course:</label>
               <select
                 className="form-select"
                 id="courseSelect"
@@ -192,64 +201,78 @@ function InvoiceAdmin() {
                   <tr>
                     <td>₹{totalCourseFee}</td>
                     <td>
-                      <span className="badge bg-success">₹{totalFeeReceived}</span>
-                      <span className="badge bg-light text-dark">of ₹{totalCourseFee}</span>
+                      <span className="badge1 bg-success">₹{totalFeeReceived}</span>
+                      <span className="badge1 bg-light text-dark">of ₹{totalCourseFee}</span>
                     </td>
                     <td>
-                      <span className="badge bg-danger">₹{totalFeePending}</span>
-                      <span className="badge bg-light text-dark">of ₹{totalCourseFee}</span>
+                      <span className="badge1 bg-danger">₹{totalFeePending}</span>
+                      <span className="badge1 bg-light text-dark">of ₹{totalCourseFee}</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <a href='#below'><em>Want to download the details as PDF?</em></a>
             </div>
           </div>
         </div>
       </div>
-      <button className="btn btn-primary" onClick={handleDownloadPDF}>
+
+      <div className="invoice-row1" style={{ width: '100%' }} >
+        {filteredData.length > 0 ? (
+          <div className="invoice-row1" style={{ width: '100%' }}>
+            {filteredData.map(item => (
+              <div key={item.regId} className="invoice-card1"  >
+                <h3 style={{ color: 'black' }}>{item.fullName}</h3>
+                <table className="invoice-table1" style={{ color: 'black' }}>
+                  <tbody>
+                    <tr>
+                      <td className="bold1">Registration ID:</td>
+                      <td>{item.regId}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Course Name:</td>
+                      <td>{item.courseName}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Total Course Fee:</td>
+                      <td>₹{item.totalCourseFee}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Payment Type:</td>
+                      <td>{item.paymentType}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Amount Paid:</td>
+                      <td>₹{item.amountPay}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Pending Amount:</td>
+                      <td>₹{item.pendingAmount}</td>
+                    </tr>
+                    <tr>
+                      <td className="bold1">Payment Option:</td>
+                      <td>{item.paymentOption}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+
+        ) : (
+          <em className="text-center">No results match your search criteria. Please try a different search.</em>
+        )}
+
+      </div><br />
+      <button className="btn btn-primary" id="below" onClick={handleDownloadPDF}>
         Save As PDF <SaveAltIcon />
-      </button><br />
-      <div className="invoice-row">
-        <div className="invoice-row">
-          {filteredData.map(item => (
-            <div key={item.regId} className="invoice-card2">
-              <h3>{item.fullName}</h3>
-              <table className="invoice-table2">
-                <tbody>
-                  <tr>
-                    <td className="bold">Registration ID:</td>
-                    <td>{item.regId}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Course Name:</td>
-                    <td>{item.courseName}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Total Course Fee:</td>
-                    <td>₹{item.totalCourseFee}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Payment Type:</td>
-                    <td>{item.paymentType}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Amount Paid:</td>
-                    <td>₹{item.amountPay}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Pending Amount:</td>
-                    <td>₹{item.pendingAmount}</td>
-                  </tr>
-                  <tr>
-                    <td className="bold">Payment Option:</td>
-                    <td>{item.paymentOption}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
-      </div>
+      </button>
+      <li className="list-group-item text-muted centered-list-item">
+        <em>(Download Student Details As PDF)</em>&nbsp;&nbsp;
+        <em>OR</em>&nbsp;&nbsp;
+        <a href='#top'><em>Go to Top</em></a>
+      </li>
+
     </div>
 
 

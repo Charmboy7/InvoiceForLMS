@@ -15,7 +15,7 @@ function ExamFeeAdmin() {
     const [searchQueryWithoutFee, setSearchQueryWithoutFee] = useState(''); // New state for second search bar
     const [courseOptionsWithoutFee, setCourseOptionsWithoutFee] = useState([]); // New state for course options in the second set of cards
     const [selectedCourseWithoutFee, setSelectedCourseWithoutFee] = useState('All'); // New state for selected course in the second set of cards
-
+    
     useEffect(() => {
         // Fetch data from the original URL
         axios.get('http://localhost:8080/payments/examfee/all')
@@ -32,7 +32,7 @@ function ExamFeeAdmin() {
         axios.get('http://localhost:8080/payments/withoutFeePayment')
             .then(response => {
                 setWithoutFeePaymentData(response.data);
-    
+
                 // Extract unique course names from the updated response data
                 const uniqueCoursesWithoutFee = [...new Set(response.data.map(record => record[3]))];
                 setCourseOptionsWithoutFee(uniqueCoursesWithoutFee);
@@ -41,11 +41,11 @@ function ExamFeeAdmin() {
                 console.error('Error fetching data from withoutFeePayment:', error);
             });
     }, [withoutFeePaymentData]);
-    
+
 
     const courses = [...new Set(allStudentsData.map(record => record.courseName))];
 
-  
+
     const handleCourseChange = (e) => {
         setSelectedCourse(e.target.value);
     };
@@ -173,17 +173,17 @@ function ExamFeeAdmin() {
         (selectedCourseWithoutFee === 'All' || item[6] === selectedCourseWithoutFee)
     );
 
-   
+
 
     return (
-        <div className="exam-fee-container">
-            <h2 className="text-center mb-4">Exam Fee Details For Admin</h2>
-            <h3>Students Who Paid Exam Fee</h3>
-            <div className="row mb-3">
+        <div className="container-fluid exam-fee-container" style={{ background: '#e8f4f9', width: '100%' }} id='#top'>
+            {/* <h2  style={{color:'black'}}>Exam Fee Details For Admin</h2><br/> */}
+            <h3 style={{ color: 'black' }}>Students Who Paid Exam Fee</h3>
+            <div className="row mb-3" style={{ width: '100%' }}>
                 <div className="col-lg-6">
                     <div className="row">
                         <div className="col-lg-12">
-                            <label htmlFor="searchInput" className="form-label">Search:</label>
+                            <label htmlFor="searchInput" className="form-label" style={{ color: 'black' }}>Search:</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -192,7 +192,7 @@ function ExamFeeAdmin() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             /><br />
-                            <label htmlFor="courseSelect" className="form-label">Select Course:</label>
+                            <label htmlFor="courseSelect" className="form-label" style={{ color: 'black' }}>Select Course:</label>
                             <select
                                 className="form-select"
                                 id="courseSelect"
@@ -212,9 +212,9 @@ function ExamFeeAdmin() {
                     <div className="card shadow-sm">
                         <div className="card-body">
                             <h5 className="card-title">Exam Fee Summary
-                           
+
                             </h5>
-                            
+
                             <table className="table table-hover">
                                 <thead>
                                     <tr>
@@ -226,9 +226,9 @@ function ExamFeeAdmin() {
                                     <tr>
                                         <td>₹{totalExamFees}</td>
                                     </tr>
-                                    
-                                   
-                            
+
+
+
                                 </tbody>
                             </table>
                             <a href='#withoutFees'>View Students Without Exam Fee Payment </a>
@@ -236,14 +236,16 @@ function ExamFeeAdmin() {
                     </div>
                 </div>
             </div>
-            <button className="btn btn-primary" onClick={handleDownloadPDF}>
-                Save As PDF <SaveAltIcon />
-            </button><br />
+            
+
+            {filteredData.length > 0 ? (
             <div className="exam-fee-row">
+            
+              
                 {filteredData.map(item => (
                     <div key={item.regId} className="exam-fee-card">
-                        <h3>{item.fullName}</h3>
-                        <table className="exam-fee-table">
+                        <h3 style={{ color: 'black' }}>{item.fullName}</h3>
+                        <table className="exam-fee-table" style={{ color: 'black' }}>
                             <tbody>
                                 <tr>
                                     <td className="bold">Registration ID:</td>
@@ -267,23 +269,36 @@ function ExamFeeAdmin() {
                                 </tr>
                                 <tr>
                                     <td className="bold">Payment Date:</td>
-                                    <td>{item.payDate}</td>
+                                    <td > {item.payDate}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 ))}
-            </div><br />
+                
+               
+            </div>
+             ) : (
+                <em className="text-center">No students found who have paid the exam fee with the given criteria.</em>
+              )} 
+            
+            <br />
+            
+            <button className="btn btn-primary" onClick={handleDownloadPDF}>
+                Save As PDF <SaveAltIcon />
+            </button>
+            <li className="list-group-item text-muted"><em>(Download ExamFee Paid Student Details As PDF)</em></li>
+
             <br />
 
             {/* Display data for students without fee payment */}
-            <h2 id="withoutFees" className="text-center mb-4">Students Without Exam Fee Payment</h2>
+            <h3 style={{ color: 'black' }} id="withoutFees"> Students Without Exam Fee Payment</h3>
 
-            <div className="row mb-3">
+            <div className="row mb-3" style={{ color: 'black', width: '100%' }}>
                 <div className="col-lg-6">
                     <div className="row">
                         <div className="col-lg-12">
-                        <label htmlFor="searchInputWithoutFee" className="form-label">Search:</label>
+                            <label htmlFor="searchInputWithoutFee" className="form-label">Search:</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -310,58 +325,98 @@ function ExamFeeAdmin() {
 
                 <div className="col-lg-6">
                     <div className="card shadow-sm">
+
+
                         <div className="card-body">
-                            <h5 className="card-title">Students Without Exam Fee Payment Summary</h5>
-                            {/* Add any relevant summary data */}
+                            <h5 className="card-title" >Students Without Exam Fee Payment Summary
+
+                            </h5>
+
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Total Students Without Exam Fee Payment: </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{withoutFeePaymentData.length}</td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+                            {/* <p className="card-text">
+                                        Total Outstanding Exam Fees: ₹{withoutFeePaymentData.reduce((total, item) => total + (item[7] || 0), 0)}
+                                    </p> */}
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
 
-            <button className="btn btn-primary" onClick={handleDownloadPDFWithoutFee}>
-                Save As PDF <SaveAltIcon />
-            </button>
+           
+            {filteredWithoutFeeData.length > 0 ? (
             <div className="exam-fee-row">
-                {withoutFeePaymentData.map(item => (
-                    <div key={item[0]} className="card mt-3">
-                        <div className="card-body">
-                            <h3 className="card-title">{item[1]}</h3>
-                            <table className="table">
-                                <tbody>
+                {filteredWithoutFeeData.map(item => (
+                    <div key={item[0]} className="exam-fee-card">
+                        <h3 style={{ color: 'black' }}>{item[1]}</h3>
+                        <table className="exam-fee-table" style={{ color: 'black' }}>
+                            <tbody>
+                                <tr>
+                                    <td className="bold">Registration ID:</td>
+                                    <td>{item[0]}</td>
+                                </tr>
+                                <tr>
+                                    <td className="bold">Name:</td>
+                                    <td>{item[1]}</td>
+                                </tr>
+                                <tr>
+                                    <td className="bold">Email:</td>
+                                    <td style={{ wordBreak: 'break-all' }}>{item[4]}</td>
+                                </tr>
+                                <tr>
+                                    <td className="bold">Phone:</td>
+                                    <td>{item[5]}</td>
+                                </tr>
+                                {/* {item[2] !== null && (
                                     <tr>
-                                        <td className="bold">Registration ID:</td>
-                                        <td>{item[0]}</td>
+                                        <td className="bold">Additional Data 1:</td>
+                                        <td>{item[2]}</td>
                                     </tr>
+                                )}
+                                {item[3] !== null && (
                                     <tr>
-                                        <td className="bold">Name:</td>
-                                        <td>{item[1]}</td>
+                                        <td className="bold">Additional Data 2:</td>
+                                        <td>{item[3]}</td>
                                     </tr>
-                                    <tr>
-                                        <td className="bold">Email:</td>
-                                        <td>{item[4]}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="bold">Phone:</td>
-                                        <td>{item[5]}</td>
-                                    </tr>
-                                    {/* {item[2] !== null && (
-                                        <tr>
-                                            <td className="bold">Additional Data 1:</td>
-                                            <td>{item[2]}</td>
-                                        </tr>
-                                    )} */}
-                                    {item[3] !== null && (
-                                        <tr>
-                                            <td className="bold">Course Name:</td>
-                                            <td>{item[3]}</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+                                )} */}
+                                <tr>
+                                    <td className="bold">Course Name:</td>
+                                    <td>{item[3]}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 ))}
             </div>
+             ) : (
+                <em className="text-center">No students found without exam fee payment with the given criteria.</em>
+              )}
+            <br/>
+           
+            <button className="btn btn-primary" onClick={handleDownloadPDFWithoutFee}>
+                Save As PDF <SaveAltIcon />
+            </button><br/>
+            <li className="list-group-item text-muted"><em>(Download Student Details Who have not paid ExamFee)</em></li>
+            <em>OR</em>
+            <a href='#top'><em>Go to Top</em></a>
+
         </div>
     );
 }
